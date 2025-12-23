@@ -16,7 +16,6 @@ public class ProjectPageTests {
         $("#content-desktop input[name='commit']").click();
         $("#container #search").setValue("Manufacture light");
         $("a[title='Manufacture light'] h3").click();
-        sleep(5000);
 
         $("a[title='Manufacture light']").shouldBe(visible);
     }
