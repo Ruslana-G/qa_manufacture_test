@@ -1,9 +1,9 @@
+package io.testomat;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import io.testomat.BaseTest;
 import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.*;
@@ -18,17 +18,18 @@ public class ProjectPageTests extends BaseTest {
     String targetProjectName = "Manufacture light";
 
     @BeforeEach
-    void openTestomatAndLogin(){
+    void openTestomatAndLogin() {
         open(url);
         loginUser(username, password);
     }
+
     @AfterEach
-    void closeBrowser(){
+    void closeBrowser() {
         Selenide.closeWebDriver();
     }
 
     @Test
-    public void findProjectTest(){
+    public void findProjectTest() {
 
         searchForProject(targetProjectName);
         selectProject(targetProjectName);
@@ -37,25 +38,25 @@ public class ProjectPageTests extends BaseTest {
     }
 
     @Test
-    public void findTestsForProjectTest(){
+    public void findTestsForProjectTest() {
 
         searchForProject(targetProjectName);
         projectTestsLabelByTitle(targetProjectName)
                 .shouldBe(Condition.visible)
                 .shouldHave(Condition.text("0 tests"));
 
-        SelenideElement targetProject = firstVisibleProjectCard();
+        var targetProject = firstVisibleProjectCard();
 
-        Integer actualAmountOfTests = testsCountFrom(targetProject);
+        var actualAmountOfTests = testsCountFrom(targetProject);
         Assertions.assertEquals(0, actualAmountOfTests);
 
     }
 
 
-
     private SelenideElement projectTestsLabelByTitle(String projectName) {
         return $(String.format("a[title='%s'] p", projectName));
     }
+
     private SelenideElement firstVisibleProjectCard() {
         return $$("#grid ul li")
                 .filter(Condition.visible)
@@ -73,14 +74,17 @@ public class ProjectPageTests extends BaseTest {
         $("#content-desktop #user_remember_me").click();
         $("#content-desktop input[name='commit']").click();
     }
-    private void searchForProject(String targetProjectName){
+
+    private void searchForProject(String targetProjectName) {
         $("#container #search").setValue(targetProjectName);
 
     }
-    private void selectProject(String targetProjectName){
+
+    private void selectProject(String targetProjectName) {
         $(String.format("a[title='%s'] h3", targetProjectName)).click();
     }
-    private void waitForProjectPageIsLoaded(String targetProjectName){
+
+    private void waitForProjectPageIsLoaded(String targetProjectName) {
         $$("a")
                 .findBy(text(targetProjectName.trim()))
                 .shouldBe(Condition.visible);
