@@ -11,9 +11,9 @@ import static io.testomat.utils.StringParsers.parseIntegerFromString;
 
 public class ProjectsPage {
 
-    public void searchForProject(String targetProjectName) {
+    public ProjectsPage searchForProject(String targetProjectName) {
         $("#container #search").setValue(targetProjectName);
-
+        return this;
     }
 
     public void selectProject(String targetProjectName) {
@@ -40,4 +40,6 @@ public class ProjectsPage {
     public Integer testsCountFrom(SelenideElement projectCard) {
         return parseIntegerFromString(projectCard.$("p").getText());
     }
+
+
 }
