@@ -22,5 +22,6 @@ public class BaseTest {
 
     static {
         Configuration.baseUrl = env.get("BASE_URL");
+        Configuration.timeout = 2000;
     }
 }
